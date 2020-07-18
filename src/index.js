@@ -13,3 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+//added in notes to do this, remember to do this
