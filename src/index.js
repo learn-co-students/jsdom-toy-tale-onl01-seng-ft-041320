@@ -16,4 +16,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 //added in notes to do this, remember to do this
-//also are legos alive and if so arnt you just slowly killing, ripping them apart pice by pice and then bringing them back just to kill them all over again. 
+//also are legos alive and if they are aren't you just slowly killing, ripping them apart pice by pice and then bringing them back just to kill them all over again. 
