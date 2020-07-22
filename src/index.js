@@ -19,7 +19,7 @@ function makeToyDiv(toy){
     <h2>${toy.name}</h2>
     <img src='${toy.image}' class='toy-avatar'></img>
     <p>${toy.likes} Likes</p>
-    <button class='like-btn'>Like <3</button>
+    <button id='${toy.id}' class='like-btn'>Like <3</button>
     </div>
     `
   }
@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     addToy = !addToy;
     if (addToy) {
       toyFormContainer.style.display = "block";
-      toyFormContainer.addEventListener('submit', function (event) {
-        event.preventDefault()
-        postToy(event.target)
+      toyFormContainer.addEventListener('submit', function (e) {
+        e.preventDefault()
+        postToy(e.target)
       })
     } else {
       toyFormContainer.style.display = "none";
@@ -77,4 +77,17 @@ function postToy(toy) {
 }
 
 // Increase Toy's Likes
+// skipping for now
 
+// Select
+const likeButton = document.querySelector(.'like-btn');
+
+// Listen
+likeButton.addEventListener('click', Like)
+
+// Do
+function Like(e) {
+  e.preventDefault()
+  e.target.innerText
+  e.target
+}
