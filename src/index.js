@@ -1,4 +1,3 @@
-
 let addToy = false;
 let toyCollection = document.querySelector("#toy-collection")
 let newToy = document.querySelector(".add-toy-form")
@@ -22,7 +21,6 @@ function addToyCollection(obj) {
     toyCollection.innerHTML += toyCard
   }
 }
-
 
 
 function addNewToy(e) {
@@ -53,7 +51,7 @@ function addNewToy(e) {
 }
 
 function addLike(e) {
-  // debugger;
+
   e.preventDefault()
   let ToyCard = e.path[1].children
   let currentLikes = parseInt(ToyCard[2].innerText)
@@ -67,7 +65,7 @@ function addLike(e) {
     },
     body: JSON.stringify({ "likes": updateLike })
   }
-  // debugger;
+
 
   fetch(destinationURL, configObj)
     .then(response => response.json())
