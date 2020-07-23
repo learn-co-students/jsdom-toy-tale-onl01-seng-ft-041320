@@ -37,6 +37,7 @@
 
         let button = document.createElement('BUTTON')
         button.setAttribute('class', 'like-btn')
+        button.setAttribute('id', toy.id)
         let text = document.createTextNode("Like")
         button.appendChild(text)
         toyCollectionContainer.appendChild(button)
@@ -150,7 +151,7 @@ function likes(e) {
   e.preventDefault()
   
   let moreLikes = parseInt((e.target.previousElementSibling.innerText).split(": ")[1]) + 1
-
+  
   fetch(`http://localhost:3000/toys/${e.target.id}`, {
       method: "PATCH",
       headers: {
@@ -167,6 +168,3 @@ function likes(e) {
     }))
 }
 
-//Questions:
-//when adding new toy...db is out of order 
-//the above code doesn't update # on database
