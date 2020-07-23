@@ -80,7 +80,7 @@ function postToy(toy) {
 // skipping for now
 
 // Select
-const likeButton = document.querySelector(.'like-btn');
+const likeButton = document.querySelector('.like-btn');
 
 // Listen
 likeButton.addEventListener('click', Like)
