@@ -21,12 +21,12 @@ function createDiv(toy){
   let likesP = document.createElement('p');
   let toyBtn = document.createElement('BUTTON');
   toyBtn.innerText = "Like";
-  toyBtn.setAttribute("class", "like-btn")
+  toyBtn.setAttribute("class", "like-btn");
+  toyBtn.setAttribute(`id`, `${toy.id}`);
   imageSource.src = toy.image;
   imageSource.setAttribute("class", "toy-avatar");
   nameHeader.innerText = toy.name;
   likesP.innerText = `${toy.likes} Likes`;
-  toyBtn.setAttribute(`id`, `${toy.id}`);
   toyCollection.appendChild(newDiv);
   newDiv.appendChild(nameHeader);
   newDiv.appendChild(imageSource);
@@ -34,15 +34,9 @@ function createDiv(toy){
   newDiv.appendChild(toyBtn);
 };
 
-function grabToyLikes(likesElement, toyLikes, toyObjId){
- 
- 
-// console.log(toyObjId)
-  let toyUrlId = `http://localhost:3000/toys/${toyObjId}`;
-  updateLikes(likesElement, toyLikes, toyUrlId);
- };
 
-function updateLikes(likesElement, toyLikes, toyUrlId){
+function updateLikes(likesElement, toyLikes, toyObjId){
+  let toyUrlId = `http://localhost:3000/toys/${toyObjId}`;
 let patchData = {
   method: "PATCH",
   headers: {
@@ -51,8 +45,7 @@ let patchData = {
   },
   body: JSON.stringify({
     "likes": toyLikes
-  }
-  )
+  })
 };
 return fetch(toyUrlId, patchData)
 .then(function(response){
@@ -61,8 +54,7 @@ return fetch(toyUrlId, patchData)
 .then(function(toyLikes){
     newLikes= toyLikes.likes + 1
     likesElement.innerText = `${newLikes} Likes`;
-}
-)
+})
 };
 
 function submitToy(toyData){
@@ -76,8 +68,7 @@ body: JSON.stringify({
   "name": toyData.name.value,
   "image": toyData.image.value,
   "likes": 0
-}
-  )
+})
 };
 return fetch("http://localhost:3000/toys", postData)
 .then(function(response){
@@ -116,12 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
   toyCollection.addEventListener("click", (event) =>{
     if (event.target.tagName === "BUTTON"){
       const likesElement = event.target.parentNode.querySelector("p");
-      const likesString = likesElement.textContent;
-      const toyLikes = parseInt(likesString);
+      const toyLikes = parseInt(likesElement.textContent);
       const toyObjId = event.target.id;
-       
-
-    grabToyLikes(likesElement,toyLikes, toyObjId)}
+    updateLikes(likesElement,toyLikes, toyObjId)}
   });
 })
 
