@@ -1,6 +1,7 @@
 let addToy = false;
 let toyCollection;
 let toyUrl = "http://localhost:3000/toys";
+
 let addToyBtn;
 
 
@@ -25,20 +26,43 @@ function createDiv(toy){
   imageSource.setAttribute("class", "toy-avatar");
   nameHeader.innerText = toy.name;
   likesP.innerText = `${toy.likes} Likes`;
+  toyBtn.setAttribute(`id`, `${toy.id}`);
   toyCollection.appendChild(newDiv);
   newDiv.appendChild(nameHeader);
   newDiv.appendChild(imageSource);
   newDiv.appendChild(likesP);
   newDiv.appendChild(toyBtn);
-  let toySelect = document.querySelector(".card");
-  toySelect.addEventListener("click", function () {
-    
-    updateLikes(event.currentTarget.querySelector("p"))
-  });
 };
 
-function updateLikes(toyObj){
-likes = parseInt(toyObj.innerText.charAt(0))
+function grabToyLikes(likesElement, toyLikes, toyObjId){
+ 
+ 
+// console.log(toyObjId)
+  let toyUrlId = `http://localhost:3000/toys/${toyObjId}`;
+  updateLikes(likesElement, toyLikes, toyUrlId);
+ };
+
+function updateLikes(likesElement, toyLikes, toyUrlId){
+let patchData = {
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    "likes": toyLikes
+  }
+  )
+};
+return fetch(toyUrlId, patchData)
+.then(function(response){
+  return response.json();
+})
+.then(function(toyLikes){
+    newLikes= toyLikes.likes + 1
+    likesElement.innerText = `${newLikes} Likes`;
+}
+)
 };
 
 function submitToy(toyData){
@@ -89,17 +113,26 @@ document.addEventListener("DOMContentLoaded", () => {
     submitToy(event.currentTarget)
     event.currentTarget.reset()
   });
-  
+  toyCollection.addEventListener("click", (event) =>{
+    if (event.target.tagName === "BUTTON"){
+      const likesElement = event.target.parentNode.querySelector("p");
+      const likesString = likesElement.textContent;
+      const toyLikes = parseInt(likesString);
+      const toyObjId = event.target.id;
+       
+
+    grabToyLikes(likesElement,toyLikes, toyObjId)}
+  });
 })
 
 //When the page loads, make a 'GET' request to fetch all the toy objects. [X]
 //With the response data, make a <div class="card"> for each toy [X]
 //add it to the toy-collection div [X]
 //Add a New Toy
-//user submits the toy form, a POST request is sent to http://localhost:3000/toys []
-//new toy is added to Andy's Toy Collection. []
-//The toy should conditionally render to the page. []
-//In order to send a POST request via Fetch, give the Fetch a second argument of an object.[]
-//This object should specify the method as POST[]
-//provide the appropriate headers and the JSON-ified data for the request.[]
-//make sure header and keys match the documentation[]
+//user submits the toy form, a POST request is sent to http://localhost:3000/toys [X]
+//new toy is added to Andy's Toy Collection. [X]
+//The toy should conditionally render to the page. [X]
+//In order to send a POST request via Fetch, give the Fetch a second argument of an object.[X]
+//This object should specify the method as POST[X]
+//provide the appropriate headers and the JSON-ified data for the request.[X]
+//make sure header and keys match the documentation[X]
