@@ -38,8 +38,7 @@ function createDiv(toy){
 };
 
 function updateLikes(toyObj){
-console.log(toyObj)
-debugger
+likes = parseInt(toyObj.innerText.charAt(0))
 };
 
 function submitToy(toyData){
